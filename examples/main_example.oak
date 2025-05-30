@@ -1,0 +1,6 @@
+BEGIN PROJ "oak.project"
+    BEGIN SECTION "main"
+        var result := eval mathexp "15 + 7"
+        ret result
+    END SECTION "main"
+END PROJ "oak.project"
