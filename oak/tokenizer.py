@@ -1,38 +1,37 @@
+import re
+
 def tokenize(source):
     tokens = []
-    current = ''
-    i = 0
-    while i < len(source):
-        char = source[i]
-        
-        # Manejo del token :=
-        if char == ':' and i + 1 < len(source) and source[i + 1] == '=':
-            if current:
-                tokens.append(current)
-                current = ''
-            tokens.append(':=')
-            i += 2
-            continue
-        
-        if char.isspace():
-            if current:
-                tokens.append(current)
-                current = ''
-        elif char in '+-*/=()':
-            if current:
-                tokens.append(current)
-                current = ''
+    token = ''
+    in_string = False
+
+    for char in source:
+        if char == '"':
+            token += char
+            if in_string:
+                tokens.append(token)
+                token = ''
+                in_string = False
+            else:
+                if token.strip():
+                    tokens.append(token.strip())
+                token = '"'
+                in_string = True
+        elif in_string:
+            token += char
+        elif char.isspace():
+            if token:
+                tokens.append(token)
+                token = ''
+        elif char in '+-*/()=':
+            if token:
+                tokens.append(token)
             tokens.append(char)
-        elif char == '"':
-            if current:
-                tokens.append(current)
-                current = '"'
-        elif char.isalnum() or char == '.' or char == '_':
-            current += char
+            token = ''
         else:
-            raise ValueError(f"Unexpected character: {char}")
-        i += 1
-    
-    if current:
-        tokens.append(current)
+            token += char
+
+    if token:
+        tokens.append(token)
+
     return tokens

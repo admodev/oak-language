@@ -1,4 +1,4 @@
-from .parser import Number, Var, BinOp, Assign, EvalMathExp
+from .parser import Number, Var, BinOp, Assign, EvalMathExp, String, FunctionCall
 
 def compile_ast(node):
     if isinstance(node, Number):
@@ -48,5 +48,16 @@ def compile_ast(node):
             except Exception as e:
                 raise ValueError(f"Error evaluando expresión matemática: {expr}") from e
         return eval_math_fn
+    
+    if isinstance(node, String):
+        return lambda env: node.value
+    
+    if isinstance(node, FunctionCall):
+        if node.name == "print":
+            arg_fn = compile_ast(node.args[0])
+            def print_fn(env):
+                value = arg_fn(env)
+                print(value)
+            return print_fn
 
     raise ValueError(f"Tipo de nodo desconocido: {type(node)}")

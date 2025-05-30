@@ -1,3 +1,5 @@
+import re
+
 from .tokenizer import tokenize
 from .parser import parse
 from .compiler import compile_ast
@@ -23,28 +25,42 @@ def run_script(script_source):
                 eval_expr(expr)
 
     def eval_expr(expr):
+        expr = expr.strip()
+        match = re.match(r'print\s+(?:"([^"]+)"|\'([^\']+)\')', expr)
+        
+        if match:
+            text = match.group(1) if match.group(1) is not None else match.group(2)
+            print("[print]", text)
+            return text
+        if expr.startswith("print "):
+            match = re.match(r'print\s+"(.+?)"|print\s+\'(.+?)\'', expr)
+            if match:
+                text = match.group(1) or match.group(2)
+                print("[print]", text)
+                return text
         if expr.startswith("print("):
             inner = expr[6:-1]
             tokens = tokenize(inner)
-            ast = parse(tokens)
-            print("[AST]", ast.__class__.__name__, getattr(ast, 'expr', ''))
-            func = compile_ast(ast)
-            print("[print]", func(env))
+            ast_node = parse(tokens)
+            func = compile_ast(ast_node)
+            result = func(env)
+            print("[print]", result)
+            return result
         elif expr.startswith("if ") or expr.startswith("for "):
             exec(expr, {}, env)
         elif expr.startswith("import_section"):
             eval(expr)
         elif '=' in expr:
-            tokens = tokenize(expr.split('=', 1)[1])
+            lhs, rhs = expr.split('=', 1)
+            tokens = tokenize(rhs)
             ast = parse(tokens)
-            print("[AST]", ast.__class__.__name__, getattr(ast, 'expr', ''))
             func = compile_ast(ast)
             result = func(env)
-            env[expr.split('=', 1)[0].strip()] = result
+            env[lhs.strip()] = result
+            return result
         else:
             tokens = tokenize(expr)
             ast = parse(tokens)
-            print("[AST]", ast.__class__.__name__, getattr(ast, 'expr', ''))
             func = compile_ast(ast)
             return func(env)
 

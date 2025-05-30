@@ -1,0 +1,5 @@
+BEGIN PROJ "hello_world.project"
+    BEGIN SECTION "main"
+        ret print "Hello, World!"
+    END SECTION "main"
+END PROJ "hello_world.project"
