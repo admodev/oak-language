@@ -8,29 +8,34 @@ Oak es un lenguaje de programación minimalista y extensible orientado a operaci
 - Variables.
 - Soporte para scripts `.oak` con estructura declarativa.
 - Múltiples secciones.
-- Instrucción `print` para salida.
+- Instrucciones `print`, `if`, `loop`, `import`.
 
 ## Sintaxis del Script
 
 ```oak
 BEGIN PROJ "oak.project"
+    BEGIN SECTION "math"
+        var x := eval mathexp "10 * 3"
+        print x
+    END SECTION "math"
+
     BEGIN SECTION "main"
-        var result := eval mathexp "15 + 7"
-        print result
-        ret result
+        import math
+        loop 2
+            print x
+        ret x
     END SECTION "main"
-    BEGIN SECTION "aux"
-        var temp := eval mathexp "3 * 3"
-        print temp
-    END SECTION "aux"
 END PROJ "oak.project"
 ```
 
 ## Instrucciones
 
-- `var <name> := eval mathexp "<expresión>"`: Define una variable a partir de una expresión matemática.
-- `ret <var>`: Retorna una variable como resultado final.
-- `print <expresión|variable>`: Imprime el resultado de una expresión o variable en tiempo de ejecución.
+- `var <name> := eval mathexp "<expresión>"`: Define una variable.
+- `ret <var>`: Retorna una variable.
+- `print <expresión>`: Imprime una expresión.
+- `if <condición>`: Condición booleana (sintaxis Python válida).
+- `loop <n>`: Ejecuta un bloque n veces.
+- `import <sección>`: Ejecuta otra sección antes de continuar.
 
 ## Uso
 

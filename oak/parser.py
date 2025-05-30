@@ -1,6 +1,10 @@
 class Node:
     pass
 
+class EvalMathExp(Node):
+  def __init__(self, expr_tokens):
+    self.expr = ' '.join(expr_tokens)
+
 class BinOp(Node):
     def __init__(self, left, op, right):
         self.left = left
@@ -47,13 +51,27 @@ def parse(tokens):
         elif token.replace('.', '', 1).isdigit():
             return Number(token), index + 1
         elif token.isalpha():
-            if index + 1 < len(tokens) and tokens[index + 1] == '=':
-                expr, new_index = parse_expr(index + 2)
-                return Assign(token, expr), new_index
             return Var(token), index + 1
         else:
             raise ValueError(f"Unexpected token: {token}")
 
-    tree, _ = parse_expr(0)
-    return tree
+    def parse_statement(index):
+        # Detecta asignación: var result := eval mathexp 15 + 7
+        if tokens[index] == 'var':
+            # var result := ...
+            var_name = tokens[index + 1]
+            if tokens[index + 2] != ':=':
+                raise ValueError("Expected ':=' after var <name>")
+            # Ahora, si viene 'eval mathexp'
+            if tokens[index + 3] == 'eval' and tokens[index + 4] == 'mathexp':
+                expr_tokens = tokens[index + 5:]
+                return Assign(var_name, EvalMathExp(expr_tokens)), len(tokens)
+            else:
+                expr, new_index = parse_expr(index + 3)
+                return Assign(var_name, expr), new_index
+        else:
+            # Por defecto, parsea una expresión normal
+            return parse_expr(index)
 
+    tree, _ = parse_statement(0)
+    return tree
