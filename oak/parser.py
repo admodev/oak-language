@@ -1,6 +1,10 @@
 class Node:
     pass
 
+class Return(Node):
+    def __init__(self, expr):
+        self.expr = expr
+
 class EvalMathExp(Node):
   def __init__(self, expr_tokens):
     self.expr = ' '.join(expr_tokens)
@@ -92,6 +96,9 @@ def parse(tokens):
             else:
                 expr, new_index = parse_expr(index + 3)
                 return Assign(var_name, expr), new_index
+        elif tokens[index] == 'ret':
+            expr, new_index = parse_expr(index + 1)
+            return Return(expr), new_index
         else:
             # Por defecto, parsea una expresión normal
             return parse_expr(index)

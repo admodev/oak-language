@@ -1,4 +1,8 @@
-from .parser import Number, Var, BinOp, Assign, EvalMathExp, String, FunctionCall
+# Casteo explicito de dill como pickle para no cambiar tanto codigo...
+import dill as pickle
+
+from .parser import Number, Var, BinOp, Assign, EvalMathExp, String, FunctionCall, Return, parse
+from .tokenizer import tokenize
 
 def compile_ast(node):
     if isinstance(node, Number):
@@ -6,6 +10,14 @@ def compile_ast(node):
 
     if isinstance(node, Var):
         return lambda env: env.get(node.name, 0)
+
+    if isinstance(node, Return):
+        expr_fn = compile_ast(node.expr)
+        def return_fn(env):
+            val = expr_fn(env)
+            env["_return"] = val
+            return val
+        return return_fn
 
     if isinstance(node, BinOp):
         left_fn = compile_ast(node.left)
@@ -54,10 +66,32 @@ def compile_ast(node):
     
     if isinstance(node, FunctionCall):
         if node.name == "print":
-            arg_fn = compile_ast(node.args[0])
+            arg_fns = [compile_ast(arg) for arg in node.args]
             def print_fn(env):
-                value = arg_fn(env)
-                print(value)
+                values = [arg(env) for arg in arg_fns]
+                print(*values)
+                return values[0] if values else None
             return print_fn
 
     raise ValueError(f"Tipo de nodo desconocido: {type(node)}")
+
+def compile_script(all_sections):
+    compiled_sections = {}
+    
+    for section_name, expressions in all_sections.items():
+        compiled_expressions = []
+        for i, expr in enumerate(expressions):
+            tokens = tokenize(expr)
+            ast = parse(tokens)
+            fn = compile_ast(ast)
+            print(f"[DEBUG] tokens: {tokens}")
+            if i == len(expressions) - 1:
+                compiled_expressions.append(lambda env, f=fn: f(env))
+            else:
+                compiled_expressions.append(lambda env, f=fn: f(env))
+    print(f"[DEBUG] compiled_sections: {compiled_sections}")
+    return compiled_sections
+
+def save_binary_script(compiled, output_path):
+    with open(output_path, "wb") as f:
+        pickle.dump(compiled, f)

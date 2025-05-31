@@ -1,4 +1,5 @@
 import re
+import dill as pickle
 
 from .tokenizer import tokenize
 from .parser import parse
@@ -72,4 +73,15 @@ def run_script(script_source):
                 value = eval_expr(expr)
                 if value is not None:
                     result = value
+    return result
+
+def run_compiled_script(path):
+    with open(path, "rb") as f:
+        compiled_sections = pickle.load(f)
+
+    env = {}
+    result = None
+    for section, compiled_exprs in compiled_sections.items():
+        for expr_fn in compiled_exprs:
+            result = expr_fn(env)
     return result
