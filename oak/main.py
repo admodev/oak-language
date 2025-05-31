@@ -2,6 +2,8 @@ import sys
 import os
 from .runtime import run, run_script
 
+DEBUG_MODE = False
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python -m oak.main \"1 + 2 * 3\" OR python -m oak.main script.oak")
