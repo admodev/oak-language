@@ -77,19 +77,28 @@ def compile_ast(node):
 
 def compile_script(all_sections):
     compiled_sections = {}
+    compiled_expressions = []
+    
+    compiled_expressions.append("; binary compilation made with Oak Compiler. 2025")
+    compiled_expressions.append("section")
+    compiled_expressions.append(".text")
+    compiled_expressions.append("global")
+    compiled_expressions.append("_start")
     
     for section_name, expressions in all_sections.items():
-        compiled_expressions = []
         for i, expr in enumerate(expressions):
             tokens = tokenize(expr)
             ast = parse(tokens)
             fn = compile_ast(ast)
+            
             print(f"[DEBUG] tokens: {tokens}")
-            if i == len(expressions) - 1:
-                compiled_expressions.append(lambda env, f=fn: f(env))
-            else:
-                compiled_expressions.append(lambda env, f=fn: f(env))
-    print(f"[DEBUG] compiled_sections: {compiled_sections}")
+            
+            # Handle all token cases and translating them to assembly code
+            if tokens[i] == "print":
+                print(f"[COMPILING] print definition found, translating...")
+                compiled_expressions.append("mov eax, 3")
+    for comp_exp in compiled_expressions:
+      print(f"[DEBUG] {comp_exp}")
     return compiled_sections
 
 def save_binary_script(compiled, output_path):
