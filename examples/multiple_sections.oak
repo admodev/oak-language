@@ -1,0 +1,10 @@
+BEGIN PROJ "multiple_sections.project"
+    BEGIN SECTION "main"
+        ret print "Hello, World!"
+    END SECTION "main"
+    
+    BEGIN SECTION "sum"
+        var result := eval mathexp "132 + 10"
+        ret result
+    END SECTION "sum"
+END PROJ "multiple_sections.project"
