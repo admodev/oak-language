@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A simple scripting language interpreter"
 authors = [{ name = "Adolfo Moyano", email = "admodevcodes@outlook.com" }]
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.8"
 dependencies = [
     "click",
@@ -17,3 +17,8 @@ oak = "oak.cli:main"
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["oak*"]
+exclude = ["assets*"]
+
