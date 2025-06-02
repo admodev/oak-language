@@ -54,3 +54,5 @@ def call_for_help():
     print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠒⢋⣁⡀⠀⠀⠀⠀⠀⠘⠢⢄⣀⠀⠀⠀⠀⠀⠀⠀⠀")
     print("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠁⠉⠙⠒⠤⣘⣗⠒⠒⠒⠚⠛⠃⠀⠀⠀⠀⠀⠀")
     print("")
+    print("Usage: oak <script.oak> or oak -h for help")
+    print("Available flags: -h (help) -d (debug) -c (compile) -r (REPL)")

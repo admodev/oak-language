@@ -11,6 +11,7 @@ class BinOp(Node):
         self.op = op
         self.right = right
 
+# TODO: implement various numerical types
 class Number(Node):
     def __init__(self, value):
         self.value = float(value)
