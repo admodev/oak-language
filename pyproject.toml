@@ -1,18 +1,24 @@
 [project]
 name = "oak"
 version = "0.1.0"
-description = "A simple scripting language interpreter"
+description = "Minimalist math-oriented programming language."
 authors = [{ name = "Adolfo Moyano", email = "admodevcodes@outlook.com" }]
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.8"
 dependencies = [
-    "click",
-    "pytest",
+    "click==8.2.1",
+    "pytest==8.4.0",
+    "dill==0.4.0"
 ]
 
 [project.scripts]
 oak = "oak.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "flake8==7.2.0",
+]
 
 [build-system]
 requires = ["setuptools", "wheel"]

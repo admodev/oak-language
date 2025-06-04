@@ -1,0 +1,12 @@
+click==8.2.1
+dill==0.4.0
+flake8==7.2.0
+iniconfig==2.1.0
+mccabe==0.7.0
+-e git+ssh://git@github.com/admodev/oak-language.git@3bf004cffa687ea33e4bce59387e918e5dda757e#egg=oak
+packaging==25.0
+pluggy==1.6.0
+pycodestyle==2.13.0
+pyflakes==3.3.2
+Pygments==2.19.1
+pytest==8.4.0
