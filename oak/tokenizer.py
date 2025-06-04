@@ -28,6 +28,10 @@ def tokenize(source):
                 tokens.append(token)
             tokens.append(char)
             token = ''
+        elif char == '#':
+            token += char
+            tokens.append(token)
+            token = ''
         else:
             token += char
 

@@ -1,6 +1,9 @@
-from .parser import Number, Var, BinOp, Assign, EvalMathExp, String, FunctionCall
+from .parser import Comment, Number, Var, BinOp, Assign, EvalMathExp, String, FunctionCall
 
 def compile_ast(node):
+    if isinstance(node, Comment):
+        return lambda env: node.value
+  
     if isinstance(node, Number):
         return lambda env: node.value
 

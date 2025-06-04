@@ -1,0 +1,7 @@
+BEGIN PROJ "commenting.project"
+    BEGIN SECTION "main"
+        # This is a comment
+        # In the main section
+        ret print "Hello, World!"
+    END SECTION "main"
+END PROJ "commenting.project"

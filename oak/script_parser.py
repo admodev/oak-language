@@ -10,6 +10,9 @@ def parse_script(source):
 
     for line in lines:
         line = line.strip()
+        if line.startswith("#"):
+            expr = line.strip()
+            sections[in_section].append(f'{expr}')
         if line.startswith("BEGIN SECTION"):
             section_name = re.findall(r'"(.*?)"', line)[0]
             in_section = section_name

@@ -80,7 +80,12 @@ def run_script(script_source):
     def eval_expr(expr):
         expr = expr.strip()
         match = re.match(r'print\s+(?:"([^"]+)"|\'([^\']+)\')', expr)
-        
+
+        if expr.startswith("#"):
+            comment_expr = expr.split('#', 1)
+            comment_result = comment_expr[1].strip()
+            print("[comment]", comment_result)
+            return comment_result
         if match:
             text = match.group(1) if match.group(1) is not None else match.group(2)
             print("[print]", text)

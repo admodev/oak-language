@@ -34,6 +34,10 @@ class FunctionCall(Node):
         self.name = name
         self.args = args
 
+class Comment(Node):
+    def __init__(self, value):
+        self.value = value
+
 def parse(tokens):
     def parse_expr(index):
         left, index = parse_term(index)
@@ -63,6 +67,8 @@ def parse(tokens):
             return Number(token), index + 1
         elif token.startswith('"') and token.endswith('"'):
             return String(token[1:-1]), index + 1
+        elif token.startswith('#'):
+            return Comment(token), index + 1
         elif token == "eval" and index + 1 < len(tokens) and tokens[index + 1] == "mathexp":
             expr_tokens = tokens[index + 2:]
             expr_str = ' '.join(expr_tokens)
