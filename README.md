@@ -8,3 +8,10 @@
 
 Read each file inside the `oak/docs` folder to start working with the oak
 programming language.
+
+### Ads
+
+This repository uses gitAds.
+
+<!-- GitAds-Verify: 44VNKXYLX9J83DZLZ7THGJ3JKWPO5IEU -->
+
