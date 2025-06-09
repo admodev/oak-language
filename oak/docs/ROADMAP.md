@@ -29,3 +29,8 @@ Built-in Math Functions
 - [ ] exp
 
 - [ ] abs
+
+Architecture Math Functions
+
+- [ ] area and perimeter calc
+
