@@ -6,13 +6,17 @@
 
 Core Functions
 
-- [ x ] Basic mathematical functions
+- [x] Basic mathematical functions
 
-- [ x ] Print function
+- [x] Print function
 
-- [ x ] Debug mode
+- [x] Debug mode
 
-- [ x ] Comments
+- [x] Comments
+
+Extra Functionalities
+
+- [ ] Interoperability with other programming languages
 
 Built-in Math Functions
 
