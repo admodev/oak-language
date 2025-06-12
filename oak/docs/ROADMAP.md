@@ -38,3 +38,7 @@ Architecture Math Functions
 
 - [ ] area and perimeter calc
 
+Objectives For The Language
+
+- Help mathematicians, scientifics and engineers solve complex problems fast and easy
+
