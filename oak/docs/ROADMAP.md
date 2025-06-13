@@ -14,6 +14,8 @@ Core Functions
 
 - [x] Comments
 
+- [ ] For loops
+
 Extra Functionalities
 
 - [ ] Interoperability with other programming languages
