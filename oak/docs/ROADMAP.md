@@ -44,3 +44,13 @@ Objectives For The Language
 
 - Help mathematicians, scientifics and engineers solve complex problems fast and easy
 
+🛤️ Road to Self-Hosted Language with x86 Compilation
+
+- [ ] formal AST construction
+
+- [ ] typing
+
+- [ ] Symbol table
+
+- [ ] local and global scope/context
+
