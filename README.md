@@ -1,3 +1,9 @@
+# IMPORTANT!
+
+## This repository is a public archive...
+
+Visit the new [rust version](https://github.com/admodev/oak) of the [Oak](https://github.com/admodev/oak) language to see the new more performant programming language i'm crafting with this beautiful language.
+
 ![oak logo](./assets/oak_logo.png "The Oak PRogrammning Language")
 
 # The Oak Programming Language Guide
